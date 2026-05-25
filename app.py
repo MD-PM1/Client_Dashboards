@@ -161,7 +161,7 @@ metrics = [
     
 ]
 
-cols = st.columns(4)
+cols = st.columns(3)
 for col, (title, column, color) in zip(cols, metrics):
     total_value = df[column].sum()
     display_metric(col, title, total_value, df_display, column, color, time_frame)
