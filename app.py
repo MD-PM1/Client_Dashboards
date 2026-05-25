@@ -137,7 +137,7 @@ elif time_frame == 'Quarterly':
     df_display = get_quarterly_data(df)
 
 # Display Key Metrics
-st.subheader("All-Time Statistics")
+st.subheader("All-Time Statistics for " + st.query_params.CID )
 
 metrics = [
     ("Total Subscribers", "NET_SUBSCRIBERS", '#29b5e8'),
