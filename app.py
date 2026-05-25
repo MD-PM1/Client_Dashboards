@@ -58,8 +58,8 @@ def aggregate_data(df, freq):
             #'SHARES': 'sum',
         })
 
-def get_weekly_data(df):
-    return aggregate_data(df, 'W-MON')
+#def get_weekly_data(df):
+#    return aggregate_data(df, 'W-MON')
 
 def get_monthly_data(df):
     return aggregate_data(df, 'M')
@@ -81,11 +81,12 @@ def create_metric_chart(df, column, color, chart_type, height=150, time_frame='D
 
 def is_period_complete(date, freq):
     today = datetime.now()
-    if freq == 'D':
-        return date.date() < today.date()
-    elif freq == 'W':
-        return date + timedelta(days=6) < today
-    elif freq == 'M':
+    #if freq == 'D':
+    #    return date.date() < today.date()
+    #elif freq == 'W':
+    #    return date + timedelta(days=6) < today
+    #el
+    if freq == 'M':
         next_month = date.replace(day=28) + timedelta(days=4)
         return next_month.replace(day=1) <= today
     elif freq == 'Q':
@@ -110,7 +111,8 @@ def display_metric(col, title, value, df, column, color, time_frame):
             create_metric_chart(df, column, color, time_frame=time_frame, chart_type=chart_selection)
             
             last_period = df.index[-1]
-            freq = {'Daily': 'D', 'Weekly': 'W', 'Monthly': 'M', 'Quarterly': 'Q'}[time_frame]
+            #freq = {'Daily': 'D', 'Weekly': 'W', 'Monthly': 'M', 'Quarterly': 'Q'}[time_frame]
+            freq = {'Monthly': 'M', 'Quarterly': 'Q'}[time_frame]
             if not is_period_complete(last_period, freq):
                 st.caption(f"Note: The last {time_frame.lower()[:-2] if time_frame != 'Daily' else 'day'} is incomplete.")
 
@@ -132,17 +134,18 @@ with st.sidebar:
     start_date = st.date_input("Start date", default_start_date, min_value=None, max_value=None)
     end_date = st.date_input("End date", default_end_date, min_value=default_start_date, max_value=default_end_date )
     time_frame = st.selectbox("Select time frame",
-                              ("Daily", "Weekly", "Monthly", "Quarterly"),
+                              ("Monthly", "Quarterly"),
     )
     chart_selection = st.selectbox("Select a chart type",
                                    ("Bar", "Area"))
 
 # Prepare data based on selected time frame
-if time_frame == 'Daily':
-    df_display = df.set_index('INVOICE_CLOSE_DATE')
-elif time_frame == 'Weekly':
-    df_display = get_weekly_data(df)
-elif time_frame == 'Monthly':
+#if time_frame == 'Daily':
+#    df_display = df.set_index('INVOICE_CLOSE_DATE')
+#elif time_frame == 'Weekly':
+#    df_display = get_weekly_data(df)
+#el
+if time_frame == 'Monthly':
     df_display = get_monthly_data(df)
 elif time_frame == 'Quarterly':
     df_display = get_quarterly_data(df)
