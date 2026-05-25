@@ -130,7 +130,7 @@ with st.sidebar:
     default_start_date = datetime.now() - timedelta(days=365)  # Show a year by default
     default_end_date = datetime.now() 
     start_date = st.date_input("Start date", default_start_date, min_value=None, max_value=None)
-    end_date = st.date_input("End date", default_end_date, min_value=default_start_date, max_value=max_date)
+    end_date = st.date_input("End date", default_end_date, min_value=default_start_date, max_value=default_end_date )
     time_frame = st.selectbox("Select time frame",
                               ("Daily", "Weekly", "Monthly", "Quarterly"),
     )
