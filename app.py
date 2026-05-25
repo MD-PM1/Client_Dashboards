@@ -15,7 +15,8 @@ def load_data():
     #data['NET_SUBSCRIBERS'] = data['SUBSCRIBERS_GAINED'] - data['SUBSCRIBERS_LOST']
    
     plan_id = st.query_params.CID
-    return data.query('INVOICE_PLAN_ID == @plan_id')
+    return data
+#.query('INVOICE_PLAN_ID == @plan_id')
 
 def custom_quarter(date):
     month = date.month
@@ -35,12 +36,7 @@ def aggregate_data(df, freq):
         MEMBERS_SERVED=('MEMBERS_SERVED', 'sum'),
         SAVINGS=('SAVINGS', 'sum'),
         DISPENSES=('DISPENSES', 'sum')
-        #'VIEWS': 'sum',
-        #'WATCH_HOURS': 'sum',
-        #'NET_SUBSCRIBERS': 'sum',
-        #'LIKES': 'sum',
-        #'COMMENTS': 'sum',
-        #'SHARES': 'sum',
+
     )
 
 #def get_weekly_data(df):
@@ -139,10 +135,7 @@ elif time_frame == 'Quarterly':
 st.subheader("All-Time Statistics for " + st.query_params.CID )
 
 metrics = [
-    #("Total Subscribers", "NET_SUBSCRIBERS", '#29b5e8'),
-    #("Total Views", "VIEWS", '#FF9F36'),
-    #("Total Watch Hours", "WATCH_HOURS", '#D45B90'),
-    #("Total Likes", "LIKES", '#7D44CF')
+
     ("Total Members Served", "MEMBERS_SERVED", '#29b5e8'),
     ("Total Savings", "SAVINGS", '#FF9F36'),
     ("Total Dispenses", "DISPENSES", '#D45B90'),
