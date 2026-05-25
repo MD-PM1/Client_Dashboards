@@ -31,7 +31,7 @@ def custom_quarter(date):
 
 def aggregate_data(df, freq):
     
-    return df.groupby('INVOICE_CLOSE_DATE', 'DISPENSE_TYPE').agg({
+    return df.groupby(['INVOICE_CLOSE_DATE', 'DISPENSE_TYPE']).agg({
         'MEMBERS_SERVED': 'sum',
         'SAVINGS': 'sum',
         'DISPENSES': 'sum',
