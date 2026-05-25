@@ -13,8 +13,7 @@ def load_data():
     #data['DATE'] = pd.to_datetime(data['DATE'])
     data['INVOICE_CLOSE_DATE'] = pd.to_datetime(data['INVOICE_CLOSE_DATE'])
     #data['NET_SUBSCRIBERS'] = data['SUBSCRIBERS_GAINED'] - data['SUBSCRIBERS_LOST']
-    return data
-#data[data['INVOICE_PLAN_ID']==st.query_params.CID]
+    return data[data['INVOICE_PLAN_ID']==st.query_params.CID]
 
 def custom_quarter(date):
     month = date.month
