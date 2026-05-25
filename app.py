@@ -29,19 +29,19 @@ def custom_quarter(date):
     else:  # month in [11, 12, 1]
         return pd.Period(year=year if month != 1 else year-1, quarter=4, freq='Q')
 
-def aggregate_data(df, freq):
+def aggregate_data(df, freq): 
     
-    return df.groupby(['INVOICE_CLOSE_DATE', 'DISPENSE_TYPE']).agg({
-        'MEMBERS_SERVED': 'sum',
-        'SAVINGS': 'sum',
-        'DISPENSES': 'sum',
+    return df.groupby(['INVOICE_CLOSE_DATE', 'DISPENSE_TYPE']).agg(
+        MEMBERS_SERVED=('MEMBERS_SERVED', 'sum'),
+        SAVINGS=('SAVINGS', 'sum'),
+        DISPENSES=('DISPENSES', 'sum')
         #'VIEWS': 'sum',
         #'WATCH_HOURS': 'sum',
         #'NET_SUBSCRIBERS': 'sum',
         #'LIKES': 'sum',
         #'COMMENTS': 'sum',
         #'SHARES': 'sum',
-    })
+    )
 
 #def get_weekly_data(df):
 #    return aggregate_data(df, 'W-MON')
