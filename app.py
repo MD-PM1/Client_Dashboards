@@ -30,35 +30,18 @@ def custom_quarter(date):
         return pd.Period(year=year if month != 1 else year-1, quarter=4, freq='Q')
 
 def aggregate_data(df, freq):
-    if freq == 'Q':
-        df = df.copy()
-        df['CUSTOM_Q'] = df['INVOICE_CLOSE_DATE'].apply(custom_quarter)
-    #    df_agg = df.groupby('CUSTOM_Q').agg({
-    #        'VIEWS': 'sum',
-    #        'WATCH_HOURS': 'sum',
-    #        'NET_SUBSCRIBERS': 'sum',
-    #        'LIKES': 'sum',
-    #        'COMMENTS': 'sum',
-    #        'SHARES': 'sum',
-    #    })
-        df_agg = df.groupby('CUSTOM_Q').agg({
-            'MEMBERS_SERVED': 'sum',
-            'SAVINGS': 'sum',
-            'DISPENSES': 'sum',
-        })
-        return df_agg
-    else:
-        return df.resample(freq, on='INVOICE_CLOSE_DATE').agg({
-            'MEMBERS_SERVED': 'sum',
-            'SAVINGS': 'sum',
-            'DISPENSES': 'sum',
-            #'VIEWS': 'sum',
-            #'WATCH_HOURS': 'sum',
-            #'NET_SUBSCRIBERS': 'sum',
-            #'LIKES': 'sum',
-            #'COMMENTS': 'sum',
-            #'SHARES': 'sum',
-        })
+    
+    return df.groupby('INVOICE_CLOSE_DATE', 'DISPENSE_TYPE').agg({
+        'MEMBERS_SERVED': 'sum',
+        'SAVINGS': 'sum',
+        'DISPENSES': 'sum',
+        #'VIEWS': 'sum',
+        #'WATCH_HOURS': 'sum',
+        #'NET_SUBSCRIBERS': 'sum',
+        #'LIKES': 'sum',
+        #'COMMENTS': 'sum',
+        #'SHARES': 'sum',
+    })
 
 #def get_weekly_data(df):
 #    return aggregate_data(df, 'W-MON')
