@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import timedelta, datetime
 
 # Set page config
-st.set_page_config(page_title="YouTube Channel Dashboard", layout="wide")
+st.set_page_config(page_title="Payer Matrix Dashboard for " + st.query_params.CID, layout="wide")
 
 # Helper functions
 @st.cache_data
@@ -112,7 +112,7 @@ st.logo(image="images/streamlit-logo-primary-colormark-lighttext.png",
         icon_image="images/streamlit-mark-color.png")
 
 with st.sidebar:
-    st.title("YouTube Channel Dashboard")
+    st.title("Your Savings Dashboard")
     st.header("⚙️ Settings")
     
     max_date = df['DATE'].max().date()
