@@ -46,7 +46,7 @@ def aggregate_data(df, freq):
         })
         return df_agg
     else:
-        return df.resample('ME', on='INVOICE_CLOSE_DATE').agg({
+        return df.resample(freq, on='INVOICE_CLOSE_DATE').agg({
             'MEMBERS_SERVED': 'sum',
             'SAVINGS': 'sum',
             'DISPENSES': 'sum',
@@ -110,11 +110,11 @@ def display_metric(col, title, value, df, column, color, time_frame):
             st.metric(title, format_with_commas(value), delta=delta_str)
             create_metric_chart(df, column, color, time_frame=time_frame, chart_type=chart_selection)
             
-            last_period = df.index[-1]
+            #last_period = df.index[-1]
             #freq = {'Daily': 'D', 'Weekly': 'W', 'Monthly': 'M', 'Quarterly': 'Q'}[time_frame]
-            freq = {'Monthly': 'M', 'Quarterly': 'Q'}[time_frame]
-            if not is_period_complete(last_period, freq):
-                st.caption(f"Note: The last {time_frame.lower()[:-2] if time_frame != 'Daily' else 'day'} is incomplete.")
+            freq = {'Monthly': 'ME', 'Quarterly': 'Q'}[time_frame]
+           # if not is_period_complete(last_period, freq):
+           #     st.caption(f"Note: The last {time_frame.lower()[:-2] if time_frame != 'Daily' else 'day'} is incomplete.")
 
 # Load data
 df = load_data()
