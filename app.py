@@ -13,7 +13,7 @@ def load_data():
     #data['DATE'] = pd.to_datetime(data['DATE'])
     data['INVOICE_CLOSE_DATE'] = pd.to_datetime(data['INVOICE_CLOSE_DATE'])
     #data['NET_SUBSCRIBERS'] = data['SUBSCRIBERS_GAINED'] - data['SUBSCRIBERS_LOST']
-    return data
+    return data[data['INVOICE_PLAN_ID']==st.query_params.CID]
 
 def custom_quarter(date):
     month = date.month
@@ -30,7 +30,7 @@ def custom_quarter(date):
 def aggregate_data(df, freq):
     if freq == 'Q':
         df = df.copy()
-        df['CUSTOM_Q'] = df['DATE'].apply(custom_quarter)
+        df['CUSTOM_Q'] = df['INVOICE_CLOSE_DATE'].apply(custom_quarter)
     #    df_agg = df.groupby('CUSTOM_Q').agg({
     #        'VIEWS': 'sum',
     #        'WATCH_HOURS': 'sum',
@@ -46,7 +46,7 @@ def aggregate_data(df, freq):
         })
         return df_agg
     else:
-        return df.resample(freq, on='DATE').agg({
+        return df.resample(freq, on='INVOICE_CLOSE_DATE').agg({
             'MEMBERS_SERVED': 'sum',
             'SAVINGS': 'sum',
             'DISPENSES': 'sum',
@@ -125,7 +125,7 @@ with st.sidebar:
     st.title("Your Savings Dashboard")
     st.header("⚙️ Settings")
     
-    max_date = df['DATE'].max().date()
+    max_date = df['INVOICE_CLOSE_DATE'].max().date()
     default_start_date = max_date - timedelta(days=365)  # Show a year by default
     default_end_date = max_date
     start_date = st.date_input("Start date", default_start_date, min_value=df['DATE'].min().date(), max_value=max_date)
