@@ -46,7 +46,7 @@ def aggregate_data(df, freq):
         })
         return df_agg
     else:
-        return df.resample(freq, on='INVOICE_CLOSE_DATE').agg({
+        return df.resample('ME', on='INVOICE_CLOSE_DATE').agg({
             'MEMBERS_SERVED': 'sum',
             'SAVINGS': 'sum',
             'DISPENSES': 'sum',
