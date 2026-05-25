@@ -128,9 +128,9 @@ with st.sidebar:
     max_date = df['INVOICE_CLOSE_DATE'].max().date()
     min_date = df['INVOICE_CLOSE_DATE'].min().date()
     default_start_date = datetime.now() - timedelta(days=365)  # Show a year by default
-    default_end_date = max_date
+    default_end_date = datetime.now() 
     start_date = st.date_input("Start date", default_start_date, min_value=None, max_value=None)
-    end_date = st.date_input("End date", default_end_date, min_value=df['INVOICE_CLOSE_DATE'].min().date(), max_value=max_date)
+    end_date = st.date_input("End date", default_end_date, min_value=default_start_date, max_value=max_date)
     time_frame = st.selectbox("Select time frame",
                               ("Daily", "Weekly", "Monthly", "Quarterly"),
     )
