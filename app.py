@@ -139,7 +139,7 @@ with st.sidebar:
 
 # Prepare data based on selected time frame
 if time_frame == 'Daily':
-    df_display = df.set_index('DATE')
+    df_display = df.set_index('INVOICE_CLOSE_DATE')
 elif time_frame == 'Weekly':
     df_display = get_weekly_data(df)
 elif time_frame == 'Monthly':
