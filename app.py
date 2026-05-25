@@ -8,9 +8,11 @@ st.set_page_config(page_title="Payer Matrix Dashboard for " + st.query_params.CI
 # Helper functions
 @st.cache_data
 def load_data():
-    data = pd.read_csv("youtube_channel_data.csv")
-    data['DATE'] = pd.to_datetime(data['DATE'])
-    data['NET_SUBSCRIBERS'] = data['SUBSCRIBERS_GAINED'] - data['SUBSCRIBERS_LOST']
+#    data = pd.read_csv("youtube_channel_data.csv")
+    data = pd.read_csv("Client_Dashboard_Data.csv")
+    #data['DATE'] = pd.to_datetime(data['DATE'])
+    data['INVOICE_CLOSE_DATE'] = pd.to_datetime(data['INVOICE_CLOSE_DATE'])
+    #data['NET_SUBSCRIBERS'] = data['SUBSCRIBERS_GAINED'] - data['SUBSCRIBERS_LOST']
     return data
 
 def custom_quarter(date):
@@ -29,23 +31,31 @@ def aggregate_data(df, freq):
     if freq == 'Q':
         df = df.copy()
         df['CUSTOM_Q'] = df['DATE'].apply(custom_quarter)
+    #    df_agg = df.groupby('CUSTOM_Q').agg({
+    #        'VIEWS': 'sum',
+    #        'WATCH_HOURS': 'sum',
+    #        'NET_SUBSCRIBERS': 'sum',
+    #        'LIKES': 'sum',
+    #        'COMMENTS': 'sum',
+    #        'SHARES': 'sum',
+    #    })
         df_agg = df.groupby('CUSTOM_Q').agg({
-            'VIEWS': 'sum',
-            'WATCH_HOURS': 'sum',
-            'NET_SUBSCRIBERS': 'sum',
-            'LIKES': 'sum',
-            'COMMENTS': 'sum',
-            'SHARES': 'sum',
+            'MEMBERS_SERVED': 'sum',
+            'SAVINGS': 'sum',
+            'DISPENSES': 'sum',
         })
         return df_agg
     else:
         return df.resample(freq, on='DATE').agg({
-            'VIEWS': 'sum',
-            'WATCH_HOURS': 'sum',
-            'NET_SUBSCRIBERS': 'sum',
-            'LIKES': 'sum',
-            'COMMENTS': 'sum',
-            'SHARES': 'sum',
+            'MEMBERS_SERVED': 'sum',
+            'SAVINGS': 'sum',
+            'DISPENSES': 'sum',
+            #'VIEWS': 'sum',
+            #'WATCH_HOURS': 'sum',
+            #'NET_SUBSCRIBERS': 'sum',
+            #'LIKES': 'sum',
+            #'COMMENTS': 'sum',
+            #'SHARES': 'sum',
         })
 
 def get_weekly_data(df):
@@ -140,10 +150,14 @@ elif time_frame == 'Quarterly':
 st.subheader("All-Time Statistics for " + st.query_params.CID )
 
 metrics = [
-    ("Total Subscribers", "NET_SUBSCRIBERS", '#29b5e8'),
-    ("Total Views", "VIEWS", '#FF9F36'),
-    ("Total Watch Hours", "WATCH_HOURS", '#D45B90'),
-    ("Total Likes", "LIKES", '#7D44CF')
+    #("Total Subscribers", "NET_SUBSCRIBERS", '#29b5e8'),
+    #("Total Views", "VIEWS", '#FF9F36'),
+    #("Total Watch Hours", "WATCH_HOURS", '#D45B90'),
+    #("Total Likes", "LIKES", '#7D44CF')
+    ("Total Members Served", "MEMBERS_SERVED", '#29b5e8'),
+    ("Total Savings", "SAVINGS", '#FF9F36'),
+    ("Total Dispenses", "DISPENSES", '#D45B90'),
+    
 ]
 
 cols = st.columns(4)
