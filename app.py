@@ -40,9 +40,9 @@ def create_metric_chart(df, column, color, chart_type, height=150):
     st.write(column)
     chart_data = df[[column]].copy()
     if chart_type=='Bar':
-        st.bar_chart(chart_data, y=column, color=color, height=height)
+        st.bar_chart(chart_data, x='INVOICE_CLOSE_DATE', y=column, color=color, height=height)
     if chart_type=='Area':
-        st.area_chart(chart_data, y=column, color=color, height=height)
+        st.area_chart(chart_data, x='INVOICE_CLOSE_DATE', y=column, color=color, height=height)
 
 def is_period_complete(date, freq):
     today = datetime.now()
