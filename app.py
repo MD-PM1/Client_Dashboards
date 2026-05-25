@@ -62,10 +62,10 @@ def aggregate_data(df, freq):
 #    return aggregate_data(df, 'W-MON')
 
 def get_monthly_data(df):
-    return aggregate_data(df, 'M')
+    return aggregate_data(df, 'ME')
 
 def get_quarterly_data(df):
-    return aggregate_data(df, 'Q')
+    return aggregate_data(df, 'QE')
 
 def format_with_commas(number):
     return f"{number:,}"
