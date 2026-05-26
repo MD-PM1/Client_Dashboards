@@ -115,9 +115,11 @@ for col, (title, column, color) in zip(cols, metrics):
 
 st.subheader("Selected Duration")
 
-cols = st.columns(4)
+cols = st.columns(3)
 for col, (title, column, color) in zip(cols, metrics):
     display_metric(col, title.split()[-1], df_display[column].sum(), df_display, column, color)
+
+st.bar_chart(Data=df_display, x='INVOICED_CLOSE_DATE', y='SAVINGS', stack=False)
 
 # DataFrame display
 with st.expander('See DataFrame (Selected time frame)'):
