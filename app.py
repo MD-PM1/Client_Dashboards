@@ -14,7 +14,7 @@ def load_data():
     data['INVOICE_CLOSE_DATE'] = pd.to_datetime(data['INVOICE_CLOSE_DATE'])
    
   #  plan_id = st.query_params.CID
-    return data
+    return  data[data['INVOICE_PLAN_ID'] == st.query_params.CID]
 #.query('INVOICE_PLAN_ID == @plan_id')
 
 
@@ -93,7 +93,7 @@ with st.sidebar:
 
 # Prepare data based on selected time frame
 df_display = get_monthly_data(df)
-df_display = df_display[df_display['INVOICE_PLAN_ID'] == st.query_params.CID]
+
 
 # Display Key Metrics
 #st.subheader("All-Time Statistics for " + st.query_params.CID )
