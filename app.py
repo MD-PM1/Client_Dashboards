@@ -14,7 +14,7 @@ def load_data():
     data['INVOICE_CLOSE_DATE'] = pd.to_datetime(data['INVOICE_CLOSE_DATE'])
    
   #  plan_id = st.query_params.CID
-    return  data[data['INVOICE_PLAN_ID'] == st.query_params.CID]
+    return  data[data['INVOICE_PLAN_ID'] == int(st.query_params.CID)]
 #.query('INVOICE_PLAN_ID == @plan_id')
 
 
