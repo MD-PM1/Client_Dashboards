@@ -119,7 +119,7 @@ cols = st.columns(3)
 for col, (title, column, color) in zip(cols, metrics):
     display_metric(col, title.split()[-1], df_display[column].sum(), df_display, column, color)
 
-st.bar_chart(df_display, x='INVOICE_CLOSE_DATE', y=['SAVINGS', 'DISPENSE_TYPE'], stack=False)
+st.bar_chart(df_display, x='INVOICE_CLOSE_DATE', y='SAVINGS', color='DISPENSE_TYPE', stack=False)
 
 # DataFrame display
 with st.expander('See DataFrame (Selected time frame)'):
