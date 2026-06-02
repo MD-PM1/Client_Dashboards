@@ -97,7 +97,8 @@ df_display = get_monthly_data(df)
 
 # Display Key Metrics
 #st.subheader("All-Time Statistics for " + st.query_params.CID )
-st.subheader("All-Time Statistics for ")
+st.subheader("All-Time Statistics")
+
 
 
 metrics = [
@@ -124,4 +125,4 @@ st.bar_chart(df_display, x='INVOICE_CLOSE_DATE', y='SAVINGS', color='DISPENSE_TY
 
 # DataFrame display
 with st.expander('See DataFrame (Selected time frame)'):
-    st.dataframe(df_display)
+    st.dataframe(df)
